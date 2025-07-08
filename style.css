@@ -19,22 +19,22 @@ body {
   padding: 15px 0;
   background-color: transparent !important;
   font-weight: 600;
-
-  box-shadow: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0);
   position: fixed;
   width: 100%;
   z-index: 1000;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .top-nav a {
-  color: white;
+  color: #ffb2db;
   text-decoration: none;
-  font-size: 1rem;
+  font-size: 1.1rem;
   transition: color 0.3s ease;
 }
 
 .top-nav a:hover {
-  color: #ff7f50;
+  color: #ff0000;
 }
 
 .top-nav a.big {
@@ -61,7 +61,7 @@ body {
 }
 
 .hero h1 {
-  font-size: 3rem;
+  font-size: 3.2rem;
   margin-bottom: 0.5rem;
 }
 
