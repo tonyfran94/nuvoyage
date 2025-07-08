@@ -246,3 +246,21 @@ footer {
   font-style: italic;
   color: #000000;
 }
+
+@media screen and (max-width: 768px) {
+  .booking {
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .booking-form {
+    padding: 1.5rem;
+    width: 100%;
+  }
+
+  .booking-form input,
+  .booking-form select,
+  .booking-form textarea {
+    font-size: 1rem;
+  }
+}
