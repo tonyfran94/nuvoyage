@@ -1,3 +1,60 @@
+/* About + Testimonials Row */
+.about-testimonials-row {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 40px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.about-testimonials-row .about-container {
+  flex: 1 1 400px;
+  min-width: 320px;
+  max-width: 600px;
+}
+
+.about-testimonials-row .testimonials {
+  flex: 1 1 400px;
+  min-width: 320px;
+  max-width: 600px;
+  margin-top: 0;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  padding: 20px 10px 10px 10px;
+}
+
+@media (max-width: 1024px) {
+  .about-testimonials-row {
+    flex-direction: column;
+    gap: 30px;
+  }
+  .about-testimonials-row .about-container,
+  .about-testimonials-row .testimonials {
+    min-width: 0;
+    width: 100%;
+    max-width: 100vw;
+  }
+}
+/* Wave Animation for Hero Section */
+.wave-container {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 90px;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.wave-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
 /* Reset and base */
 * {
   margin: 0;
@@ -16,8 +73,7 @@ body {
   display: flex;
   justify-content: center;
   gap: 40px;
-  padding: 15px 0;
-  background-color: transparent !important;
+  background: transparent !important;
   font-weight: 600;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0);
   position: fixed;
@@ -26,8 +82,18 @@ body {
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
+body.scrolled .top-nav {
+  background: #87847f !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+body.scrolled .top-nav a {
+  color: #ffffff !important;
+  text-shadow: none;
+}
+
 .top-nav a {
-  color: #ffb2db;
+  color: #ffffff;
   text-decoration: none;
   font-size: 1.1rem;
   transition: color 0.3s ease;
@@ -35,6 +101,8 @@ body {
 
 .top-nav a:hover {
   color: #ff0000;
+  font-size: 1.4rem;
+  transition: font-size 0.2s cubic-bezier(0.4,0,0.2,1), color 0.2s;
 }
 
 .top-nav a.big {
@@ -49,24 +117,18 @@ body {
   align-items: center;
   justify-content: center;
   position: relative;
-  color: white;
+  color: #ffffff;
   text-align: center;
 }
 
-.overlay {
-  background-color: rgba(0, 0, 0, 0.6);
-  padding: 40px;
-  border-radius: 10px;
-  max-width: 900px;
-}
 
 .hero h1 {
-  font-size: 3.2rem;
+  font-size: 4rem;
   margin-bottom: 0.5rem;
 }
 
 .hero p {
-  font-size: 1.2rem;
+  font-size: 2rem;
   margin-bottom: 1.5rem;
 }
 
@@ -132,7 +194,9 @@ section {
 
 .card img {
   width: 100%;
-  height: auto;
+  height: 200px;
+  object-fit: cover;
+  object-position: center;
 }
 
 .card h3 {
@@ -155,8 +219,7 @@ footer {
   background: #87847f;
   color: #fff;
   text-align: center;
-  padding: 20px;
-}
+ }
 
 .booking {
   padding: 2rem;
@@ -247,20 +310,114 @@ footer {
   color: #000000;
 }
 
+
+/* Responsive Styles */
+@media screen and (max-width: 1024px) {
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+  .hero p {
+    font-size: 1.2rem;
+  }
+  .cards {
+    gap: 10px;
+  }
+  .card {
+    width: 220px;
+  }
+  .about-image {
+    width: 180px;
+  }
+}
+
 @media screen and (max-width: 768px) {
+  .top-nav {
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px 0;
+    position: static;
+  }
+  .hero {
+    height: 60vh;
+    padding: 30px 10px;
+  }
+  .hero h1 {
+    font-size: 2rem;
+  }
+  .hero p {
+    font-size: 1rem;
+  }
+  .cards {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  .card {
+    width: 95vw;
+    max-width: 350px;
+  }
+  .about-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  .about-image {
+    width: 80vw;
+    max-width: 250px;
+    margin-bottom: 20px;
+  }
+  .about-text {
+    min-width: 0;
+  }
   .booking {
     padding: 1rem;
     text-align: center;
   }
-
   .booking-form {
-    padding: 1.5rem;
+    padding: 1rem;
     width: 100%;
+    max-width: 100vw;
   }
-
   .booking-form input,
   .booking-form select,
   .booking-form textarea {
     font-size: 1rem;
+  }
+  section {
+    padding: 30px 5px;
+  }
+  .reviews-wrapper {
+    height: 200px;
+    padding: 5px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .hero {
+    height: 40vh;
+    padding: 10px 0;
+  }
+  .hero h1 {
+    font-size: 1.2rem;
+  }
+  .hero p {
+    font-size: 0.9rem;
+  }
+  .btn {
+    padding: 8px 12px;
+    font-size: 1rem;
+  }
+  .card {
+    width: 98vw;
+    max-width: 98vw;
+  }
+  .about-image {
+    width: 95vw;
+    max-width: 180px;
+  }
+  .booking-form {
+    padding: 0.5rem;
+  }
+  .reviews-wrapper {
+    height: 120px;
   }
 }
