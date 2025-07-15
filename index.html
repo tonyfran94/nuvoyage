@@ -143,40 +143,60 @@
     </div>
   </section>
 
-  <!-- Booking Section -->
+
+
   <section class="booking" id="book">
-    <h2>Book Your Journey</h2>
-    <form class="booking-form">
-      <label for="name">Full Name</label>
-      <input type="text" id="name" name="name" required />
+  <div class="booking-flight-row">
+    <div class="booking-form-container">
+      <h2>Book Your Journey</h2>
+      <form class="booking-form">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" name="name" required />
 
-      <label for="email">Email Address</label>
-      <input type="email" id="email" name="email" required />
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" required />
 
-     <label for="destination">Select Destination</label>
-<select id="destination" name="destination" required>
-  <option value="">--Please choose--</option>
-  <option value="African Safari Adventure Package">African Safari Adventure Package</option>
-  <option value="Asian Cultural & Beach Escape">Asian Cultural & Beach Escape</option>
-  <option value="European Historic & Romantic Escape">European Historic & Romantic Escape</option>
-  <option value="Rodrigues Island Escape">Rodrigues Island Escape</option>
-</select>
+        <label for="destination">Select Destination</label>
+        <select id="destination" name="destination" required>
+          <option value="">--Please choose--</option>
+          <option value="African Safari Adventure Package">African Safari Adventure Package</option>
+          <option value="Asian Cultural & Beach Escape">Asian Cultural & Beach Escape</option>
+          <option value="European Historic & Romantic Escape">European Historic & Romantic Escape</option>
+          <option value="Rodrigues Island Escape">Rodrigues Island Escape</option>
+        </select>
 
-      <label for="date">Preferred Travel Date</label>
-      <input type="date" id="date" name="date" required />
+        <label for="date">Preferred Travel Date</label>
+        <input type="date" id="date" name="date" required />
 
-      <label for="message">Additional Message</label>
-      <textarea id="message" name="message" rows="4"></textarea>
+        <label for="message">Additional Message</label>
+        <textarea id="message" name="message" rows="4"></textarea>
 
-      <button type="submit" class="btn">Submit Booking</button>
-    </form>
+        <button type="submit" class="btn">Submit Booking</button>
+      </form>
+    </div>
+    <div class="flight-status-container">
+      <h2>Live Flight Status</h2>
+      <form id="flight-status-form">
+        <label for="dep">Departure Airport (IATA code, e.g. MRU)</label>
+        <input type="text" id="dep" name="dep" maxlength="3" required style="text-transform:uppercase;" />
+        <label for="arr">Arrival Airport (IATA code, e.g. RRG)</label>
+        <input type="text" id="arr" name="arr" maxlength="3" required style="text-transform:uppercase;" />
+        <button type="submit" class="btn">Search Flights</button>
+      </form>
+      <div id="flight-status-results" style="max-width:700px;margin:0 auto;"></div>
+    </div>
+  </div>
   </section>
 
   <!-- Contact Section -->
   <section id="contact">
     <h2>Contact Us</h2>
     <p>Reach out to us for bookings and inquiries.</p>
-    <!-- You can add a form here later -->
+    <ul class="contact-details" style="list-style:none; padding:0; font-size:1.1rem;">
+      <li><strong>Email:</strong> <a href="mailto:anthonydefrancois@gmail.com">anthonydefrancois@gmail.com</a></li>
+      <li><strong>Address:</strong> Port Mathurin, Rodrigues</li>
+      <li><strong>Phone:</strong> <a href="tel:+23057192609">+230 5719 2609</a></li>
+    </ul>
   </section>
 
   <!-- Footer -->
@@ -185,6 +205,38 @@
   </footer>
 
 <script>
+  // Aviationstack Live Flight Status Search (next to booking)
+  document.getElementById('flight-status-form').addEventListener('submit', async function(event) {
+    event.preventDefault();
+    const dep = document.getElementById('dep').value.trim().toUpperCase();
+    const arr = document.getElementById('arr').value.trim().toUpperCase();
+    const resultsDiv = document.getElementById('flight-status-results');
+    resultsDiv.innerHTML = '<p>Searching for flights...</p>';
+    try {
+      const resp = await fetch(`https://api.aviationstack.com/v1/flights?access_key=eba6f37c3cfb25459c61f75dd318acc3&dep_iata=${dep}&arr_iata=${arr}&limit=10`);
+      const data = await resp.json();
+      if (data && data.data && data.data.length > 0) {
+        let html = '<table style="width:100%;border-collapse:collapse;margin-top:1rem;font-size:1rem;">';
+        html += '<tr style="background:#eee;"><th>Flight</th><th>Airline</th><th>Departure</th><th>Arrival</th><th>Status</th></tr>';
+        data.data.forEach(f => {
+          html += `<tr>
+            <td>${f.flight.iata || ''}</td>
+            <td>${f.airline ? f.airline.name : ''}</td>
+            <td>${f.departure ? f.departure.scheduled : ''} (${f.departure.iata || ''})</td>
+            <td>${f.arrival ? f.arrival.scheduled : ''} (${f.arrival.iata || ''})</td>
+            <td>${f.flight_status || ''}</td>
+          </tr>`;
+        });
+        html += '</table>';
+        resultsDiv.innerHTML = html;
+      } else {
+        resultsDiv.innerHTML = '<p>No flights found for this route.</p>';
+      }
+    } catch (e) {
+      resultsDiv.innerHTML = '<p style="color:red;">Error fetching flight data. Please try again later.</p>';
+    }
+  });
+
   // Booking form WhatsApp integration
   document.querySelector('.booking-form').addEventListener('submit', function(event) {
     event.preventDefault();
