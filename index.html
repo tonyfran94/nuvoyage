@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Nu Voyage by Eco Crew</title>
   <link rel="stylesheet" href="style.css"/>
+  <!-- PayPal SDK -->
+  <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD"></script>
 </head>
 <body>
 
@@ -113,33 +115,35 @@
           </div>
         </div>
       </div>
-      <div class="testimonials" id="testimonials">
-        <h2>What Travelers Say</h2>
-        <div class="reviews-wrapper">
-          <div class="reviews-container">
-            <div class="review">“A life-changing journey. NuVoyage redefined what travel means to me.” – Amara B.</div>
-            <div class="review">“Excellent service and unforgettable experiences!” – Daniel K.</div>
-            <div class="review">“The safari was breathtaking, well organized, and comfortable.” – Lila M.</div>
-            <div class="review">“Highly recommend NuVoyage for culturally immersive trips.” – Priya S.</div>
-            <div class="review">“Great attention to detail and friendly guides.” – Marco T.</div>
-            <div class="review">“Beautiful hotels and smooth transfers made the trip relaxing.” – Sophia L.</div>
-            <div class="review">“The food and local experiences were top-notch.” – James F.</div>
-            <div class="review">“Loved the mix of adventure and leisure on our vacation.” – Mei W.</div>
-            <div class="review">“NuVoyage made planning so easy and stress-free.” – Olivia R.</div>
-            <div class="review">“A perfect balance of sightseeing and downtime.” – Carlos D.</div>
-            <div class="review">“Friendly staff and great communication throughout.” – Nina P.</div>
-            <div class="review">“The guides were knowledgeable and passionate.” – Yusuf A.</div>
-            <div class="review">“Memories to last a lifetime thanks to NuVoyage!” – Helena G.</div>
-            <div class="review">“Wonderful cultural immersion and authentic experiences.” – Liam N.</div>
-            <div class="review">“Everything was seamless from start to finish.” – Emma C.</div>
-            <div class="review">“The itinerary was well paced and engaging.” – Raj M.</div>
-            <div class="review">“Loved the personal touches and thoughtful planning.” – Grace H.</div>
-            <div class="review">“A truly transformative travel experience.” – Ahmed S.</div>
-            <div class="review">“Great value for an unforgettable journey.” – Zoe K.</div>
-            <div class="review">“Can’t wait to book our next trip with NuVoyage!” – Ethan B.</div>
-          </div>
-        </div>
-      </div>
+      <!-- Testimonials section removed from here -->
+<!-- Testimonials Section moved after booking -->
+<section class="testimonials" id="testimonials">
+  <h2>What Travelers Say</h2>
+  <div class="reviews-wrapper">
+    <div class="reviews-container">
+      <div class="review">“A life-changing journey. NuVoyage redefined what travel means to me.” – Amara B.</div>
+      <div class="review">“Excellent service and unforgettable experiences!” – Daniel K.</div>
+      <div class="review">“The safari was breathtaking, well organized, and comfortable.” – Lila M.</div>
+      <div class="review">“Highly recommend NuVoyage for culturally immersive trips.” – Priya S.</div>
+      <div class="review">“Great attention to detail and friendly guides.” – Marco T.</div>
+      <div class="review">“Beautiful hotels and smooth transfers made the trip relaxing.” – Sophia L.</div>
+      <div class="review">“The food and local experiences were top-notch.” – James F.</div>
+      <div class="review">“Loved the mix of adventure and leisure on our vacation.” – Mei W.</div>
+      <div class="review">“NuVoyage made planning so easy and stress-free.” – Olivia R.</div>
+      <div class="review">“A perfect balance of sightseeing and downtime.” – Carlos D.</div>
+      <div class="review">“Friendly staff and great communication throughout.” – Nina P.</div>
+      <div class="review">“The guides were knowledgeable and passionate.” – Yusuf A.</div>
+      <div class="review">“Memories to last a lifetime thanks to NuVoyage!” – Helena G.</div>
+      <div class="review">“Wonderful cultural immersion and authentic experiences.” – Liam N.</div>
+      <div class="review">“Everything was seamless from start to finish.” – Emma C.</div>
+      <div class="review">“The itinerary was well paced and engaging.” – Raj M.</div>
+      <div class="review">“Loved the personal touches and thoughtful planning.” – Grace H.</div>
+      <div class="review">“A truly transformative travel experience.” – Ahmed S.</div>
+      <div class="review">“Great value for an unforgettable journey.” – Zoe K.</div>
+      <div class="review">“Can’t wait to book our next trip with NuVoyage!” – Ethan B.</div>
+    </div>
+  </div>
+</section>
     </div>
   </section>
 
@@ -172,6 +176,10 @@
         <textarea id="message" name="message" rows="4"></textarea>
 
         <button type="submit" class="btn">Submit Booking</button>
+        <div style="margin: 20px 0; text-align: center;">
+          <!-- PayPal Button -->
+          <div id="paypal-button-container"></div>
+        </div>
       </form>
     </div>
     <div class="flight-status-container">
@@ -205,12 +213,37 @@
   </footer>
 
 <script>
-  // Aviationstack Live Flight Status Search (next to booking)
-  document.getElementById('flight-status-form').addEventListener('submit', async function(event) {
-    event.preventDefault();
-    const dep = document.getElementById('dep').value.trim().toUpperCase();
-    const arr = document.getElementById('arr').value.trim().toUpperCase();
-    const resultsDiv = document.getElementById('flight-status-results');
+  // PayPal Button integration
+    <!-- Testimonials section moved here -->
+    <section class="testimonials" id="testimonials">
+      <h2>What Travelers Say</h2>
+      <div class="reviews-wrapper">
+        <div class="reviews-container">
+          <div class="review">“A life-changing journey. NuVoyage redefined what travel means to me.” – Amara B.</div>
+          <div class="review">“Excellent service and unforgettable experiences!” – Daniel K.</div>
+          <div class="review">“The safari was breathtaking, well organized, and comfortable.” – Lila M.</div>
+          <div class="review">“Highly recommend NuVoyage for culturally immersive trips.” – Priya S.</div>
+          <div class="review">“Great attention to detail and friendly guides.” – Marco T.</div>
+          <div class="review">“Beautiful hotels and smooth transfers made the trip relaxing.” – Sophia L.</div>
+          <div class="review">“The food and local experiences were top-notch.” – James F.</div>
+          <div class="review">“Loved the mix of adventure and leisure on our vacation.” – Mei W.</div>
+          <div class="review">“NuVoyage made planning so easy and stress-free.” – Olivia R.</div>
+          <div class="review">“A perfect balance of sightseeing and downtime.” – Carlos D.</div>
+          <div class="review">“Friendly staff and great communication throughout.” – Nina P.</div>
+          <div class="review">“The guides were knowledgeable and passionate.” – Yusuf A.</div>
+          <div class="review">“Memories to last a lifetime thanks to NuVoyage!” – Helena G.</div>
+          <div class="review">“Wonderful cultural immersion and authentic experiences.” – Liam N.</div>
+          <div class="review">“Everything was seamless from start to finish.” – Emma C.</div>
+          <div class="review">“The itinerary was well paced and engaging.” – Raj M.</div>
+          <div class="review">“Loved the personal touches and thoughtful planning.” – Grace H.</div>
+          <div class="review">“A truly transformative travel experience.” – Ahmed S.</div>
+          <div class="review">“Great value for an unforgettable journey.” – Zoe K.</div>
+          <div class="review">“Can’t wait to book our next trip with NuVoyage!” – Ethan B.</div>
+        </div>
+      </div>
+    </section>
+  if (window.paypal) {
+    paypal.Buttons({
     resultsDiv.innerHTML = '<p>Searching for flights...</p>';
     try {
       const resp = await fetch(`https://api.aviationstack.com/v1/flights?access_key=eba6f37c3cfb25459c61f75dd318acc3&dep_iata=${dep}&arr_iata=${arr}&limit=10`);
