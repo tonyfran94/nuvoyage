@@ -103,7 +103,7 @@
         <img src="sweety.jpg" alt="Sweety Moonian Francois" class="about-image">
         <div class="about-text">
           <div class="about-text-box">
-            <p>
+            <p style="max-width:600px; width:100%; height:350px; display:flex; align-items:center; justify-content:center; margin:auto; overflow:auto;">
               At NuVoyage by Eco Crew, we believe travel is more than a destination — it’s a soulful experience that connects people, cultures, and nature. Our mission is to craft personalized, meaningful journeys that awaken the spirit and leave a lasting impact on both travelers and host communities.
 
   Behind NuVoyage is Sweety Moonian Francois, a dedicated travel curator with over a decade of experience guiding travelers across continents. Born with an adventurous heart and a love for connecting people with purpose, Sweety has worked closely with guests from around the world, speaking fluent English, French, Creole, and Italian. Her deep understanding of cultural nuance and her warm, professional approach make each journey feel seamless and inspired.
@@ -115,35 +115,6 @@
           </div>
         </div>
       </div>
-      <!-- Testimonials section removed from here -->
-<!-- Testimonials Section moved after booking -->
-<section class="testimonials" id="testimonials">
-  <h2>What Travelers Say</h2>
-  <div class="reviews-wrapper">
-    <div class="reviews-container">
-      <div class="review">“A life-changing journey. NuVoyage redefined what travel means to me.” – Amara B.</div>
-      <div class="review">“Excellent service and unforgettable experiences!” – Daniel K.</div>
-      <div class="review">“The safari was breathtaking, well organized, and comfortable.” – Lila M.</div>
-      <div class="review">“Highly recommend NuVoyage for culturally immersive trips.” – Priya S.</div>
-      <div class="review">“Great attention to detail and friendly guides.” – Marco T.</div>
-      <div class="review">“Beautiful hotels and smooth transfers made the trip relaxing.” – Sophia L.</div>
-      <div class="review">“The food and local experiences were top-notch.” – James F.</div>
-      <div class="review">“Loved the mix of adventure and leisure on our vacation.” – Mei W.</div>
-      <div class="review">“NuVoyage made planning so easy and stress-free.” – Olivia R.</div>
-      <div class="review">“A perfect balance of sightseeing and downtime.” – Carlos D.</div>
-      <div class="review">“Friendly staff and great communication throughout.” – Nina P.</div>
-      <div class="review">“The guides were knowledgeable and passionate.” – Yusuf A.</div>
-      <div class="review">“Memories to last a lifetime thanks to NuVoyage!” – Helena G.</div>
-      <div class="review">“Wonderful cultural immersion and authentic experiences.” – Liam N.</div>
-      <div class="review">“Everything was seamless from start to finish.” – Emma C.</div>
-      <div class="review">“The itinerary was well paced and engaging.” – Raj M.</div>
-      <div class="review">“Loved the personal touches and thoughtful planning.” – Grace H.</div>
-      <div class="review">“A truly transformative travel experience.” – Ahmed S.</div>
-      <div class="review">“Great value for an unforgettable journey.” – Zoe K.</div>
-      <div class="review">“Can’t wait to book our next trip with NuVoyage!” – Ethan B.</div>
-    </div>
-  </div>
-</section>
     </div>
   </section>
 
@@ -214,36 +185,37 @@
 
 <script>
   // PayPal Button integration
-    <!-- Testimonials section moved here -->
-    <section class="testimonials" id="testimonials">
-      <h2>What Travelers Say</h2>
-      <div class="reviews-wrapper">
-        <div class="reviews-container">
-          <div class="review">“A life-changing journey. NuVoyage redefined what travel means to me.” – Amara B.</div>
-          <div class="review">“Excellent service and unforgettable experiences!” – Daniel K.</div>
-          <div class="review">“The safari was breathtaking, well organized, and comfortable.” – Lila M.</div>
-          <div class="review">“Highly recommend NuVoyage for culturally immersive trips.” – Priya S.</div>
-          <div class="review">“Great attention to detail and friendly guides.” – Marco T.</div>
-          <div class="review">“Beautiful hotels and smooth transfers made the trip relaxing.” – Sophia L.</div>
-          <div class="review">“The food and local experiences were top-notch.” – James F.</div>
-          <div class="review">“Loved the mix of adventure and leisure on our vacation.” – Mei W.</div>
-          <div class="review">“NuVoyage made planning so easy and stress-free.” – Olivia R.</div>
-          <div class="review">“A perfect balance of sightseeing and downtime.” – Carlos D.</div>
-          <div class="review">“Friendly staff and great communication throughout.” – Nina P.</div>
-          <div class="review">“The guides were knowledgeable and passionate.” – Yusuf A.</div>
-          <div class="review">“Memories to last a lifetime thanks to NuVoyage!” – Helena G.</div>
-          <div class="review">“Wonderful cultural immersion and authentic experiences.” – Liam N.</div>
-          <div class="review">“Everything was seamless from start to finish.” – Emma C.</div>
-          <div class="review">“The itinerary was well paced and engaging.” – Raj M.</div>
-          <div class="review">“Loved the personal touches and thoughtful planning.” – Grace H.</div>
-          <div class="review">“A truly transformative travel experience.” – Ahmed S.</div>
-          <div class="review">“Great value for an unforgettable journey.” – Zoe K.</div>
-          <div class="review">“Can’t wait to book our next trip with NuVoyage!” – Ethan B.</div>
-        </div>
-      </div>
-    </section>
   if (window.paypal) {
     paypal.Buttons({
+      style: {
+        layout: 'horizontal',
+        color:  'gold',
+        shape:  'rect',
+        label:  'paypal'
+      },
+      createOrder: function(data, actions) {
+        return actions.order.create({
+          purchase_units: [{
+            amount: {
+              value: '100.00' // Example amount, update as needed
+            }
+          }]
+        });
+      },
+      onApprove: function(data, actions) {
+        return actions.order.capture().then(function(details) {
+          alert('Payment completed by ' + details.payer.name.given_name + '!');
+        });
+      }
+    }).render('#paypal-button-container');
+  }
+
+  // Aviationstack Live Flight Status Search (next to booking)
+  document.getElementById('flight-status-form').addEventListener('submit', async function(event) {
+    event.preventDefault();
+    const dep = document.getElementById('dep').value.trim().toUpperCase();
+    const arr = document.getElementById('arr').value.trim().toUpperCase();
+    const resultsDiv = document.getElementById('flight-status-results');
     resultsDiv.innerHTML = '<p>Searching for flights...</p>';
     try {
       const resp = await fetch(`https://api.aviationstack.com/v1/flights?access_key=eba6f37c3cfb25459c61f75dd318acc3&dep_iata=${dep}&arr_iata=${arr}&limit=10`);
